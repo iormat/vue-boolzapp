@@ -52,14 +52,14 @@
                 <!-- all messages list section -->
                 <section id="contacts">
                     <ul>
-                        <li v-for="contact, i in contacts" :key="i" class="user_info flex_it">
+                        <li v-for="contact, i in contacts" :key="i" class="user_info flex_it" :class='contact.visible ? "visible" : ""' @click="openChat(contact, i)">
                             <div class="profile_pic">
                                 <img :src="contact.avatar" alt="contact image">
                             </div>
 
                             <div class="contact_info">
                                 <p class="user_name"> {{contact.name}}</p>
-                                <div class="last_message"> prova </div>
+                                <div class="last_message"> {{contact.messages[contact.messages.length - 1].text}} </div>
                             </div>
 
                             <div class="time">
@@ -70,14 +70,14 @@
                 </section>
             </header>
             <!-- MAIN -->
-            <main>
+            <main v-for="contact, i in contacts" v-if="contact.visible">
                 <!-- main profile section -->
                 <section id="chat_profile" class="flex_it">
                     <div class="user_info flex_it">
                         <div class="profile_pic">
-                            <img src="img/avatar_io.jpg" alt="personal image">
+                            <img :src="contact.avatar" alt="personal image">
                         </div>
-                        <p class="user_name"> Nome Utente </p>
+                        <p class="user_name"> {{contact.name}} </p>
                     </div>
 
                     <div class="user_options">
@@ -88,15 +88,16 @@
                 </section>
                 <!-- messages section -->
                 <section id="messages">
-                    <div class="msg contact_message">
-                        solo una prova messaggio ricevuto
-                    </div>
-
-                    <div class="msg personal_message"> 
-                        solo una prova messaggio inviato
+                    <div v-for="message in contact.messages">
+                        <div class="msg contact_message" v-if="message.status =='received'">
+                            {{message.text}}
+                        </div>
+    
+                        <div class="msg personal_message" v-if="message.status == 'sent'">  
+                            {{message.text}}
+                        </div>    
                     </div>
                 </section>
-
                 <!-- type new message section -->
                 <section id="type_message">
                     <label for="type">
@@ -105,7 +106,6 @@
                         <i class="fas fa-microphone"></i>
                     </label>
                 </section>
-
             </main>
         </div>
     </div>
