@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title> WhastApp Web-Replica </title>
+</head>
+<body>
+    <div id="app">
+        <section id="top_body_bar"></section>
+        <div class="container">
+            <!-- HEADER -->
+            <header>
+                <!-- profile section -->
+                <section id="profile" class="flex_it">
+                    <div class="user_info flex_it">
+                        <div class="profile_pic">
+                            <img src="img/avatar_io.jpg" alt="personal image">
+                        </div>
+                        <p class="user_name"> Nome Utente </p>
+                    </div>
+
+                    <div class="user_options">
+                        <i class="fas fa-circle-notch"></i>
+                        <i class="fas fa-comment-alt"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </section>
+                <!-- notification section -->
+                <section class="notifications flex_it">
+                    <div class="bell flex_it">
+                        <i class="fas fa-bell-slash"></i>
+                    </div>
+                    <div class="notif_text flex_it">
+                        <p> Ricevi notifiche di nuovi messaggi </p>
+                        <span> <a href="#"> Attiva notifiche desktop </a> </span>
+                    </div>
+                </section>
+                <!-- textbox search -->
+                <section id="search">
+                    <label for="search_user" class="flex_it">
+                        <i class="fas fa-search"></i>
+                        <input id="search_user" type="text" placeholder="Cerca o inizia una nuova chat">
+                    </label>
+                </section>
+                <!-- all messages list section -->
+                <section id="contacts">
+                    <ul>
+                        <li v-for="contact, i in contacts" :key="i" class="user_info flex_it">
+                            <div class="profile_pic">
+                                <img :src="contact.avatar" alt="contact image">
+                            </div>
+
+                            <div class="contact_info">
+                                <p class="user_name"> {{contact.name}}</p>
+                                <div class="last_message"> prova </div>
+                            </div>
+
+                            <div class="time">
+                                <p>{{contact.messages[contact.messages.length - 1].date}}</p>
+                            </div>
+                        </li>    
+                    </ul>
+                </section>
+            </header>
+            <!-- MAIN -->
+            <main>
+                
+            </main>
+
+        </div>
+    </div>
+    
+    <!-- inclusion Vuejs Dev -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- personal js -->
+    <script src="js/main.js"></script>
+</body>
+</html>

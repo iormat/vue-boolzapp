@@ -25,6 +25,7 @@ body {
 
 .container {
     width: 80%;
+    height: calc(100vh - 40px);
     margin: 20px auto;
     position: relative;
     background-color: #EAEAEA;
@@ -44,13 +45,19 @@ body {
 
 /* HEADER RULES -------------------- */
 header {
-    width: 30%;
+    width: 35%;
+    height:calc(100vh - 40px);
     min-width: 285px;
     border-right: 1px solid #cecece;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
+    background-color: #fff;
+    overflow-y: hidden;
 }
+
     /* profile section */
+#profile {
+    background-color: #EAEAEA;
+}
+
 .profile_pic, .bell {
     margin: 10px;
     height: 50px;
@@ -63,10 +70,15 @@ img {
     width: 100%;
 }
 
+.user_options {
+    min-width: 100px;
+}
+
 header .fas{
     margin: 5px;
     color: #B2B1B1;
 }
+
     /* notification section */
 .notifications {
     color: #fff;
@@ -102,9 +114,9 @@ header .fas{
 }
     /* textbox search */
 #search {
-    background-color: #fff;
     margin: 5px;
     padding: 5px;
+    background-color: #fff;
 }
 
 .search_icon {
@@ -115,4 +127,32 @@ header .fas{
     width: 80%;
     border: 0;
     font-size: 1rem;
-}    
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+} 
+
+    /* contacts section */
+#contacts {
+    background-color: #fff;
+    padding: 10px 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#contacts .flex_it {
+    justify-content: flex-start;
+    position: relative;
+}
+
+.last_message, .time {
+    font-size: .8rem;
+    color: #BFC1C3;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.time {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
