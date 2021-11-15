@@ -1,0 +1,118 @@
+/* GENERAL RULES -------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-size: 20px;
+    background-color: #DDDBD3;
+    font-family: 'Roboto', sans-serif;
+}
+
+#top_body_bar {
+    background-color: #429388;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    position: relative;
+    background-color: #EAEAEA;
+}
+
+.inner_container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.flex_it {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* HEADER RULES -------------------- */
+header {
+    width: 30%;
+    min-width: 285px;
+    border-right: 1px solid #cecece;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+    /* profile section */
+.profile_pic, .bell {
+    margin: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+}
+
+header .fas{
+    margin: 5px;
+    color: #B2B1B1;
+}
+    /* notification section */
+.notifications {
+    color: #fff;
+    background-color: #9FD8F8;
+    justify-content: flex-start;
+}
+
+.bell {
+    min-width: 50px;
+    color: #9FD8F8;
+    background-color: #fff;
+    justify-content: center;
+}
+
+.bell .fa-bell-slash {
+    font-size: 2rem;
+    color: #9FD8F8;
+}
+
+.notif_text {
+    flex-flow: column nowrap;
+    align-items: start;
+    margin: 0 10px;
+}
+
+.notifications p {
+    color: #000;
+    font-size: 1rem;
+}
+.notif_text a {
+    color: #587485;
+    font-size: .8rem;
+}
+    /* textbox search */
+#search {
+    background-color: #fff;
+    margin: 5px;
+    padding: 5px;
+}
+
+.search_icon {
+    margin: 10px;
+}
+
+#search_user {
+    width: 80%;
+    border: 0;
+    font-size: 1rem;
+}    
