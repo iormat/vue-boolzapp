@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title> WhastApp Web-Replica </title>
@@ -46,13 +46,13 @@
                 <section id="search" class="flex_it">
                     <label for="search_user" class="flex_it">
                         <i class="fas fa-search"></i>
-                        <input id="search_user" type="text" placeholder="Cerca o inizia una nuova chat">
+                        <input id="search_user" type="text" v-model="searchContact" @keyup="startResearch" placeholder="Cerca o inizia una nuova chat">
                     </label>
                 </section>
                 <!-- all messages list section -->
                 <section id="contacts">
                     <ul>
-                        <li v-for="contact, i in contacts" :key="i" class="user_info flex_it" :class='contact.visible ? "visible" : ""' @click="openChat(contact, i)">
+                        <li v-for="contact, i in contacts" :key="i" v-if="contact.found" class="user_info flex_it" :class='contact.visible ? "visible" : ""' @click="openChat(contact, i)">
                             <div class="profile_pic">
                                 <img :src="contact.avatar" alt="contact image">
                             </div>
@@ -65,7 +65,7 @@
                             <div class="time">
                                 <p>{{contact.messages[contact.messages.length - 1].date}}</p>
                             </div>
-                        </li>    
+                        </li>                         
                     </ul>
                 </section>
             </header>
@@ -94,19 +94,26 @@
                     <section id="messages">
                         <div class="msg" v-for="message in contact.messages">
                             <div class="msg contact_message" v-if="message.status =='received'">
-                                {{message.text}}    
+                                {{message.text}}
+                                <div class="time">
+                                    <p>{{contact.messages[contact.messages.length - 1].date}}</p>
+                                </div>   
                             </div>
         
                             <div class="msg personal_message" v-if="message.status == 'sent'">  
                                 {{message.text}}
+                                <div class="time">
+                                    <p>{{contact.messages[contact.messages.length - 1].date}}</p>
+                                </div>
                             </div>
+                            
                         </div>
                     </section>
                     <!-- type new message section -->
                     <section id="type_message" class="flex_it">
                         <i class="far fa-smile"></i>
                         <label for="type_search">
-                            <input id="type_search" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" @keyup.enter="stopIt" placeholder="Scrivi un messaggio">
+                            <input id="type_search" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" placeholder="Scrivi un messaggio">
                         </label>
                         <i class="fas fa-microphone"></i>
                     </section>
