@@ -2,6 +2,7 @@ var boolsApp = new Vue(
     {
         el : '#app',
         data : {
+            newMessage : "",
             contacts: [ 
                 {
                     name: 'Michele',
@@ -91,23 +92,28 @@ var boolsApp = new Vue(
                         },
                     ],
                 },
-
-
             ]    
         },
         methods : {
+            // choose chat
             openChat : function(contact) {
-                console.log(contact.visible);
                 if(!contact.visible) {
-                    console.log(contact)
+                    // delete every open chat before opening a new one
                     this.contacts.forEach((contact) => {
                         contact.visible = false;
+                        console.log(this.newMessage)
                     }),
                     contact.visible = true;
-                }else {
-                    contact.visible = false;
                 }
             },
+            // send new message
+            sendMessage : function(contact) {
+                let newMesObj ={date: "boh", text : this.newMessage, status : 'sent'}
+                if(this.newMessage !== "" && this.newMessage !== " ") {
+                    contact.messages.push(newMesObj);
+                    this.newMessage = "";
+                }
+            }
         }
     }
 )

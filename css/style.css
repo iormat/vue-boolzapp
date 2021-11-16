@@ -6,7 +6,7 @@
 }
 
 body {
-    height: 100vh;
+    max-height: 100vh;
     font-size: 20px;
     background-color: #DDDBD3;
     font-family: 'Roboto', sans-serif;
@@ -31,12 +31,6 @@ body {
     background-color: #EAEAEA;
 }
 
-.container:after {
-    content: '';
-    display: table;
-    clear: both;
-}
-
 .inner_container {
     width: 95%;
     margin: 0 auto;
@@ -49,22 +43,18 @@ body {
     align-items: center;
 }
 
-header, main {
-    float: left
-}
-
 /* HEADER RULES -------------------- */
 header {
     width: 35%;
     height:calc(100vh - 40px);
-    min-width: 285px;
+    min-width: 325px;
     border-right: 1px solid #cecece;
     background-color: #fff;
     overflow-y: hidden;
 }
 
     /* profile section */
-#profile {
+.profile_bg {
     background-color: #EAEAEA;
 }
 
@@ -84,7 +74,7 @@ img {
     min-width: 100px;
 }
 
-header .fas, main .fas{
+header .fas, main .fas, main .far{
     margin: 5px;
     color: #B2B1B1;
 }
@@ -118,24 +108,26 @@ header .fas, main .fas{
     color: #000;
     font-size: 1rem;
 }
+
 .notif_text a {
     color: #587485;
     font-size: .8rem;
 }
-    /* textbox search */
+    /* input search_user section */
 #search {
-    margin: 5px;
-    padding: 5px;
-    background-color: #fff;
+    background-color: #FAFAFA;
+    padding: 10px;
 }
 
-.search_icon {
-    margin: 10px;
+#search label {
+    width:100%
 }
 
 #search_user {
-    width: 80%;
+    width: 100%;
+    margin-left: 10px;
     border: 0;
+    padding: 10px 0;
     font-size: 1rem;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -144,13 +136,13 @@ header .fas, main .fas{
     /* contacts section */
 #contacts {
     background-color: #fff;
-    padding: 10px 0;
     height: calc(100% - 180px);
     overflow-y: auto;
 }
 
-#contacts .flex_it {
+#contacts .user_info.flex_it {
     justify-content: flex-start;
+    cursor: pointer;
     position: relative;
 }
 
@@ -158,11 +150,23 @@ header .fas, main .fas{
     background-color: #E9EBEB;
 }
 
+.user_info:hover {
+    background-color: #E9EBEB;
+}
+
+.contact_info {
+    max-width: 120px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .last_message, .time {
     font-size: .8rem;
     color: #BFC1C3;
     overflow-x: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .time {
@@ -173,41 +177,47 @@ header .fas, main .fas{
 
 /* MAIN RULES -------------------- */
 main {
-    min-width: 300px;
+    min-width: 400px;
     width: 65%;
     height: 100%;
     background-image: url('../img/whatsapp_background.jpg');
     position: relative;
 }
-
-#chat_profile {
-    background-color: #EAEAEA;
+#chat_window {
+    overflow-y: auto;
+    max-height: 100%;
 }
+
+    /* chat profile section */
+.profile_text .time {
+    position: static;
+}
+
     /* messages */
 #messages {
     padding: 30px 50px 84px 50px;
-    height: calc(100% - 70px);
-    overflow-y: auto;
+    max-height: calc(100% - 70px);
 }
 
 .msg {
+    min-width: 100px;
     padding: 10px;
-    max-width: 40%;
     border-radius: 10px;
     font-size: 1rem;
+    display: flex;
+    flex-flow: column wrap;
+    position: relative;
+    margin-top: 10px;
 }
 
 .contact_message {
-    float: left;
-    margin-right: 400px;
+    align-self: flex-start;
     background-color: #fff;
 }
 
 .personal_message {
-    float: right;
-    margin-left: 400px;
+    align-self: flex-end;
     background-color: #DDF8C0;
-    margin-top: 20px;
 }
 
     /* type new message */
@@ -220,12 +230,24 @@ main {
     right: 0;
 }
 
-#type {
-    width: 90%;
-    height: 30px;
-} 
+#type_search {
+    width: 100%;
+    border: 0;
+    border-radius: 3px;
+    padding: 10px 5px;
+    font-size: 1rem;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
 
-#type_message .fas {
+#type_message label {
+    width: 100%;
+}
+
+#type_message i {
+    text-align: center;
+    margin: 0 20px;
     font-size: 1.5rem;
     vertical-align: middle;
+    min-width: 30px;
 }
