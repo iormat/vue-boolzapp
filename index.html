@@ -106,7 +106,7 @@
                     <section id="type_message" class="flex_it">
                         <i class="far fa-smile"></i>
                         <label for="type_search">
-                            <input id="type_search" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" placeholder="Scrivi un messaggio">
+                            <input id="type_search" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" @keyup.enter="stopIt" placeholder="Scrivi un messaggio">
                         </label>
                         <i class="fas fa-microphone"></i>
                     </section>

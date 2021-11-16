@@ -110,10 +110,16 @@ var boolsApp = new Vue(
             sendMessage : function(contact) {
                 let newMesObj ={date: "boh", text : this.newMessage, status : 'sent'}
                 if(this.newMessage !== "" && this.newMessage !== " ") {
+                    // push new message 
                     contact.messages.push(newMesObj);
                     this.newMessage = "";
+                    // get auto answer
+                    setTimeout(function() {                   
+                        newMesObj = {date: "boh", text : 'Automessage: ok', status : 'received'};
+                        contact.messages.push(newMesObj);}
+                    ,1000);
                 }
-            }
+            },
         }
     }
 )
