@@ -71,16 +71,16 @@
             </header>
             <!-- MAIN -->
             <main>
-                <div id="chat_window" v-for="contact, i in contacts" v-if="contact.visible">
+                <div id="chat_window" v-for="contact in contacts"  v-if="contact.visible">
                     <!-- main profile section -->
                     <section id="chat_profile" class="profile_bg flex_it">
                         <div class="user_info flex_it">
                             <div class="profile_pic">
-                                <img :src="contact.avatar" alt="personal image">
+                                <img :src="contact.avatar" :alt="contact.name">
                             </div>
                             <div class="profile_text">
                                 <p> {{contact.name}} </p>
-                                <p class="time"> Ultimo accesso&colon; {{contact.messages[contact.messages.length - 1].date}} </p>
+                                <p class="time"> Ultimo accesso&colon; {{contact.messages[contact.messages.length - 1].date}}</p>
                             </div>
                         </div>
 
@@ -92,19 +92,32 @@
                     </section>
                     <!-- messages section -->
                     <section id="messages">
-                        <div class="msg" v-for="message in contact.messages">
+                        <div class="msg" v-for="message, j in contact.messages" :key="j">
+                            <!-- received messages -->
                             <div class="msg contact_message" v-if="message.status =='received'">
                                 {{message.text}}
                                 <div class="time">
                                     <p>{{contact.messages[contact.messages.length - 1].date}}</p>
-                                </div>   
+                                </div> 
+                                <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
+
+                                <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
+                                    <li> Seleziona messaggio </li>
+                                    <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
+                                </ul>
                             </div>
-        
-                            <div class="msg personal_message" v-if="message.status == 'sent'">  
+                            <!-- sent messages -->
+                            <div class="msg personal_message" v-else>  
                                 {{message.text}}
                                 <div class="time">
                                     <p>{{contact.messages[contact.messages.length - 1].date}}</p>
                                 </div>
+                                <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
+
+                                <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
+                                    <li> Seleziona messaggio </li>
+                                    <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
+                                </ul>
                             </div>
                             
                         </div>
@@ -124,7 +137,6 @@
     
     <!-- inclusion Vuejs Dev -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     <!-- personal js -->
     <script src="js/main.js"></script>
-</body>
-</html>

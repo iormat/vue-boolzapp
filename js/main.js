@@ -1,4 +1,5 @@
-const now = new Date().toUTCString();
+now = dayjs().format('D-MM-YY ore: HH:mm');
+
 
 var boolsApp = new Vue(
     {
@@ -18,17 +19,20 @@ var boolsApp = new Vue(
                         {
                             date : now,
                             text : 'Hai portato a spasso il cane?',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'gli hai dato da mangiare?',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Tutto fatto',
-                            status : 'received'
+                            status : 'received',
+                            openDropMenu : false
                         },
                     ],
                 },
@@ -41,17 +45,20 @@ var boolsApp = new Vue(
                         {
                             date : now,
                             text : 'Ciao come stai?',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Bene grazie, stasera ci vediamo?',
-                            status : 'received'
+                            status : 'received',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Mi piacerebbe, ma stasera sono impegnato',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                     ],
                 },
@@ -64,17 +71,20 @@ var boolsApp = new Vue(
                         {
                             date : now,
                             text : 'Ciao, stasera cinema?',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Ottima idea, a che ora?',
-                            status : 'received'
+                            status : 'received',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Spettacolo delle 20:30, ci vediamo là 10 minuti prima',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                     ],
                 },
@@ -87,24 +97,26 @@ var boolsApp = new Vue(
                         {
                             date : now,
                             text : 'Hai comprato il pane?',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Si',
-                            status : 'received'
+                            status : 'received',
+                            openDropMenu : false
                         },
                         {
                             date : now,
                             text : 'Ottimo, grazie',
-                            status : 'sent'
+                            status : 'sent',
+                            openDropMenu : false
                         },
                     ],
                 },
             ]    
         },
         methods : {
-            // choose chat
             openChat : function(contact) {
                 if(!contact.visible) {
                     // delete every open chat before opening a new one
@@ -112,18 +124,19 @@ var boolsApp = new Vue(
                         contact.visible = false;
                     }),
                     contact.visible = true;
+                    this.getTime;
                 }
             },
             // send new message
             sendMessage : function(contact) {
-                let newMesObj ={date: now, text : this.newMessage, status : 'sent'}
+                let newMesObj ={date: now, text : this.newMessage, status : 'sent', openDropMenu : false}
                 if(this.newMessage !== "" && this.newMessage !== " ") {
                     // push new message 
                     contact.messages.push(newMesObj);
                     this.newMessage = "";
                     // get auto answer
                     setTimeout(function() {                   
-                        newMesObj = {date: now, text : 'Automessage: ok', status : 'received'};
+                        newMesObj = {date: now, text : 'Automessage: ok', status : 'received', openDropMenu : false};
                         contact.messages.push(newMesObj);}
                     ,1000);
                 }
@@ -134,14 +147,26 @@ var boolsApp = new Vue(
                     // exclude unrelated contacts
                     if(!contact.name.toLowerCase().includes(this.searchContact.toLowerCase())) {
                         contact.found = false;
-                        console.log("questi NON è correlato: ",contact.name, contact.found);
+                        console.log("questo NON è correlato: ",contact.name, contact.found);
                      // print only relates contacts 
                     }else {                        
-                        console.log("questi sono è correlato: ",contact.name, contact.found);
+                        console.log("questo è correlato: ",contact.name, contact.found);
                         contact.found = true;
                     }
                 })
             },
+            // function to get dropdown menu
+            openDropMenudown : function(contact, j) {
+                if(contact.messages[j].openDropMenu === false) {
+                    contact.messages[j].openDropMenu = true;
+                }else if(contact.messages[j].openDropMenu === true) {
+                    contact.messages[j].openDropMenu = false;
+                }
+            },
+            // function to eliminate message
+            deleteMsg : function(contact, j) {
+                contact.messages.splice(j, 1)
+            }
 
         },
     }
