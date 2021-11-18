@@ -1,142 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <title> WhastApp Web-Replica </title>
-</head>
-<body>
-    <div id="app">
-        <section id="top_body_bar"></section>
-        <div class="container flex_it">
-            <!-- HEADER -->
-            <header>
-                <!-- profile section -->
-                <section id="profile" class="profile_bg flex_it">
-                    <div class="user_info flex_it">
-                        <div class="profile_pic">
-                            <img src="img/avatar_io.jpg" alt="personal image">
-                        </div>
-                        <p> Nome Utente </p>
-                    </div>
-
-                    <div class="user_options">
-                        <i class="fas fa-circle-notch"></i>
-                        <i class="fas fa-comment-alt"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                    </div>
-                </section>
-                <!-- notification section -->
-                <section class="notifications flex_it">
-                    <div class="bell flex_it">
-                        <i class="fas fa-bell-slash"></i>
-                    </div>
-                    <div class="notif_text flex_it">
-                        <p> Ricevi notifiche di nuovi messaggi </p>
-                        <span> <a href="#"> Attiva notifiche desktop </a> </span>
-                    </div>
-                </section>
-                <!-- textbox search -->
-                <section id="search" class="flex_it">
-                    <label for="search_user" class="flex_it">
-                        <i class="fas fa-search"></i>
-                        <input id="search_user" type="text" v-model="searchContact" @keyup="startResearch" placeholder="Cerca o inizia una nuova chat">
-                    </label>
-                </section>
-                <!-- all messages list section -->
-                <section id="contacts">
-                    <ul>
-                        <li v-for="contact, i in contacts" :key="i" v-if="contact.found" class="user_info flex_it" :class='contact.visible ? "visible" : ""' @click="openChat(contact, i)">
-                            <div class="profile_pic">
-                                <img :src="contact.avatar" alt="contact image">
-                            </div>
-
-                            <div class="contact_info">
-                                <p> {{contact.name}} </p>
-                                <div class="last_message"> {{contact.messages[contact.messages.length - 1].text}} </div>
-                            </div>
-
-                            <div class="time">
-                                <p>{{contact.messages[contact.messages.length - 1].date}}</p>
-                            </div>
-                        </li>                         
-                    </ul>
-                </section>
-            </header>
-            <!-- MAIN -->
-            <main>
-                <div id="chat_window" v-for="contact in contacts"  v-if="contact.visible">
-                    <!-- main profile section -->
-                    <section id="chat_profile" class="profile_bg flex_it">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <title> WhastApp Web-Replica </title>
+    </head>
+    <body>
+        <div id="app">
+            <section id="top_body_bar"></section>
+            <div class="container flex_it">
+                <!-- HEADER -->
+                <header>
+                    <!-- profile section -->
+                    <section id="profile" class="profile_bg flex_it">
                         <div class="user_info flex_it">
                             <div class="profile_pic">
-                                <img :src="contact.avatar" :alt="contact.name">
+                                <img src="img/avatar_io.jpg" alt="personal image">
                             </div>
-                            <div class="profile_text">
-                                <p> {{contact.name}} </p>
-                                <p class="time"> Ultimo accesso&colon; {{contact.messages[contact.messages.length - 1].date}}</p>
-                            </div>
+                            <p> Nome Utente </p>
                         </div>
 
                         <div class="user_options">
-                            <i class="fas fa-search"></i>
-                            <i class="fas fa-paperclip"></i>
+                            <i class="fas fa-circle-notch"></i>
+                            <i class="fas fa-comment-alt"></i>
                             <i class="fas fa-ellipsis-v"></i>
                         </div>
                     </section>
-                    <!-- messages section -->
-                    <section id="messages">
-                        <div class="msg" v-for="message, j in contact.messages" :key="j">
-                            <!-- received messages -->
-                            <div class="msg contact_message" v-if="message.status =='received'">
-                                {{message.text}}
-                                <div class="time">
-                                    <p>{{contact.messages[contact.messages.length - 1].date}}</p>
-                                </div> 
-                                <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
-
-                                <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
-                                    <li> Seleziona messaggio </li>
-                                    <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
-                                </ul>
-                            </div>
-                            <!-- sent messages -->
-                            <div class="msg personal_message" v-else>  
-                                {{message.text}}
-                                <div class="time">
-                                    <p>{{contact.messages[contact.messages.length - 1].date}}</p>
-                                </div>
-                                <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
-
-                                <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
-                                    <li> Seleziona messaggio </li>
-                                    <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
-                                </ul>
-                            </div>
-                            
+                    <!-- notification section -->
+                    <section class="notifications flex_it">
+                        <div class="bell flex_it">
+                            <i class="fas fa-bell-slash"></i>
+                        </div>
+                        <div class="notif_text flex_it">
+                            <p> Ricevi notifiche di nuovi messaggi </p>
+                            <span> <a href="#"> Attiva notifiche desktop </a> </span>
                         </div>
                     </section>
-                    <!-- type new message section -->
-                    <section id="type_message" class="flex_it">
-                        <i class="far fa-smile"></i>
-                        <label for="type_search">
-                            <input id="type_search" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" placeholder="Scrivi un messaggio">
+                    <!-- textbox search -->
+                    <section id="search" class="flex_it">
+                        <label for="search_user" class="flex_it">
+                            <i class="fas fa-search"></i>
+                            <input id="search_user" type="text" v-model="searchContact" @keyup="startResearch" placeholder="Cerca o inizia una nuova chat">
                         </label>
-                        <i class="fas fa-microphone"></i>
                     </section>
-                </div>
-            </main>
+                    <!-- all messages list section -->
+                    <section id="contacts">
+                        <ul>
+                            <li v-for="contact, i in contacts" :key="i" v-if="contact.found" class="user_info flex_it" :class='contact.visible ? "visible" : ""' @click="openChat(contact, i)">
+                                <div class="profile_pic">
+                                    <img :src="contact.avatar" alt="contact image">
+                                </div>
+
+                                <div class="contact_info">
+                                    <p> {{contact.name}} </p>
+                                    <div class="last_message" v-if="contact.messages.length >= 1"> {{contact.messages[contact.messages.length - 1].text}} </div>
+                                    <div v-else></div>
+                                </div>
+
+                                <div class="time">
+                                    <p v-if="contact.messages.length >= 1">{{contact.messages[contact.messages.length - 1].date}}</p>
+                                    <p v-else></p>
+                                </div>
+                            </li>                         
+                        </ul>
+                    </section>
+                </header>
+                <!-- MAIN -->
+                <main>
+                    <div id="chat_window"  v-if="contact.visible" v-for="contact, i in contacts" :key="i">
+                        <!-- main profile section -->
+                        <section id="chat_profile" class="profile_bg flex_it">
+                            <div class="user_info flex_it">
+                                <div class="profile_pic">
+                                    <img :src="contact.avatar" :alt="contact.name">
+                                </div>
+                                <div class="profile_text">
+                                    <p> {{contact.name}} </p>
+                                    <p class="time"> Ultimo accesso&colon; {{lastAccess}}</p>
+                                </div>
+                            </div>
+
+                            <div class="user_options">
+                                <i class="fas fa-search"></i>
+                                <i class="fas fa-paperclip"></i>
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                        </section>
+                        <!-- messages section -->
+                        <section id="messages">
+                            <div class="msg" v-for="message, j in contact.messages" :key="j">
+                                <!-- received messages -->
+                                <div class="msg contact_message" v-if="message.status =='received'">
+                                    {{message.text}}
+                                    <div class="time">
+                                        <p>{{message.date}}</p>
+                                    </div> 
+                                    <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
+
+                                    <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
+                                        <li> Seleziona messaggio </li>
+                                        <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
+                                    </ul>
+                                </div>
+                                <!-- sent messages -->
+                                <div class="msg personal_message" v-else>  
+                                    {{message.text}}
+                                    <div class="time">
+                                        <p>{{message.date}}</p>
+                                    </div>
+                                    <i class="fas fa-angle-down" @click="openDropMenudown(contact, j)"></i>
+
+                                    <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
+                                        <li> Seleziona messaggio </li>
+                                        <li @click="deleteMsg(contact, j)"> Elimina messaggio </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- type new message section -->
+                        <section id="type_message" class="flex_it">
+                            <i class="far fa-smile"></i>
+                            <label for="type_in">
+                                <input id="type_in" type="text" v-model="newMessage" @keyup.enter="sendMessage(contact)" placeholder="Scrivi un messaggio">
+                            </label>
+                            <i class="fas fa-microphone"></i>
+                        </section>
+                    </div>
+                </main>
+            </div>
         </div>
-    </div>
-    
-    <!-- inclusion Vuejs Dev -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
-    <!-- personal js -->
-    <script src="js/main.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

@@ -1,10 +1,8 @@
-now = dayjs().format('D-MM-YY ore: HH:mm');
-
-
 var boolsApp = new Vue(
     {
         el : '#app',
         data : {
+            lastAccess : dayjs().format('D:M:YYYY ore: M:ss'),
             // search in contacts list
             searchContact : "",
             // save typed input
@@ -17,19 +15,19 @@ var boolsApp = new Vue(
                     found : true,
                     messages: [
                         {
-                            date : now,
+                            date : '10/01/2020 15:30:55',
                             text : 'Hai portato a spasso il cane?',
                             status : 'sent',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '10/01/2020 15:50:00',
                             text : 'gli hai dato da mangiare?',
                             status : 'sent',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '10/01/2020 16:15:22',
                             text : 'Tutto fatto',
                             status : 'received',
                             openDropMenu : false
@@ -43,19 +41,19 @@ var boolsApp = new Vue(
                     found : true,
                     messages: [
                         {
-                            date : now,
+                            date : '20/03/2020 16:30:00',
                             text : 'Ciao come stai?',
                             status : 'sent',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '20/03/2020 16:30:55',
                             text : 'Bene grazie, stasera ci vediamo?',
                             status : 'received',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '20/03/2020 16:35:00',
                             text : 'Mi piacerebbe, ma stasera sono impegnato',
                             status : 'sent',
                             openDropMenu : false
@@ -69,19 +67,19 @@ var boolsApp = new Vue(
                     found : true,
                     messages: [
                         {
-                            date : now,
+                            date : '28/03/2020 10:10:40',
                             text : 'Ciao, stasera cinema?',
                             status : 'sent',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '28/03/2020 10:20:10',
                             text : 'Ottima idea, a che ora?',
                             status : 'received',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '28/03/2020 16:15:22',
                             text : 'Spettacolo delle 20:30, ci vediamo là 10 minuti prima',
                             status : 'sent',
                             openDropMenu : false
@@ -95,19 +93,19 @@ var boolsApp = new Vue(
                     found : true,
                     messages: [
                         {
-                            date : now,
+                            date : '10/01/2020 15:30:55',
                             text : 'Hai comprato il pane?',
                             status : 'sent',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '10/01/2020 15:50:00',
                             text : 'Si',
                             status : 'received',
                             openDropMenu : false
                         },
                         {
-                            date : now,
+                            date : '10/01/2020 15:53:16',
                             text : 'Ottimo, grazie',
                             status : 'sent',
                             openDropMenu : false
@@ -129,15 +127,17 @@ var boolsApp = new Vue(
             },
             // send new message
             sendMessage : function(contact) {
-                let newMesObj ={date: now, text : this.newMessage, status : 'sent', openDropMenu : false}
+                let newMesObj ={date: dayjs().format('D/M/YYYY ore: HH:mm:ss'), text : this.newMessage, status : 'sent', openDropMenu : false}
                 if(this.newMessage !== "" && this.newMessage !== " ") {
                     // push new message 
                     contact.messages.push(newMesObj);
                     this.newMessage = "";
                     // get auto answer
                     setTimeout(function() {                   
-                        newMesObj = {date: now, text : 'Automessage: ok', status : 'received', openDropMenu : false};
-                        contact.messages.push(newMesObj);}
+                        newMesObj = {date: dayjs().format('D/M/YYYY ore: HH:mm:ss'), text : 'ok', status : 'received', openDropMenu : false};
+                        contact.messages.push(newMesObj);
+                        this.newMessage = "";
+                    }
                     ,1000);
                 }
             },
@@ -155,7 +155,7 @@ var boolsApp = new Vue(
                     }
                 })
             },
-            // function to get dropdown menu
+            // function to get dropdown menu to show
             openDropMenudown : function(contact, j) {
                 if(contact.messages[j].openDropMenu === false) {
                     contact.messages[j].openDropMenu = true;
