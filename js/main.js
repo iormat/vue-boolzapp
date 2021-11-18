@@ -156,7 +156,7 @@ var boolsApp = new Vue(
                 })
             },
             // function to get dropdown menu to show
-            openDropMenudown : function(contact, j) {
+            openDropdownMenu : function(contact, j) {
                 if(contact.messages[j].openDropMenu === false) {
                     contact.messages[j].openDropMenu = true;
                 }else if(contact.messages[j].openDropMenu === true) {
