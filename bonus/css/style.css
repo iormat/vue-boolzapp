@@ -1,0 +1,305 @@
+/* GENERAL RULES -------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    max-height: 100vh;
+    font-size: 20px;
+    background-color: #DDDBD3;
+    font-family: ‘Lato’, sans-serif;
+}
+
+#top_body_bar {
+    background-color: #429388;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.container {
+    width: 80%;
+    height: calc(100vh - 40px);
+    margin: 20px auto;
+    position: relative;
+    background-color: #EAEAEA;
+}
+
+.flex_it {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    /* bg color rule */
+header, main, .dropdown, .contact_message {
+    background-color: #fff;
+}
+
+/* HEADER RULES -------------------- */
+header {
+    width: 35%;
+    height:calc(100vh - 40px);
+    min-width: 325px;
+    border-right: 1px solid #cecece;
+    overflow-y: hidden;
+}
+
+    /* profile section */
+.profile_bg {
+    background-color: #EAEAEA;
+}
+
+.profile_pic, .bell {
+    margin: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+}
+
+.user_options {
+    min-width: 100px;
+}
+
+header .fas, main .fas, main .far{
+    margin: 5px;
+    color: #B2B1B1;
+}
+
+    /* notification section */
+.notifications {
+    background-color: #9FD8F8;
+    justify-content: flex-start;
+}
+
+.bell {
+    min-width: 50px;
+    background-color: #fff;
+    justify-content: center;
+}
+
+.bell .fa-bell-slash {
+    font-size: 2rem;
+    color: #9FD8F8;
+}
+
+.notif_text {
+    flex-flow: column nowrap;
+    align-items: start;
+    margin: 0 10px;
+}
+
+.notifications p {
+    color: #000;
+    font-size: 1rem;
+}
+
+.notif_text a {
+    color: #587485;
+    font-size: .8rem;
+}
+    /* input search_user section */
+#search {
+    background-color: #FAFAFA;
+    padding: 10px;
+}
+
+label {
+    width:100%
+}
+
+#search_user {
+    width: 100%;
+    margin-left: 10px;
+    border: 0;
+    padding: 10px 0;
+    font-size: 1rem;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+} 
+
+    /* contacts section */
+#contacts {
+    height: calc(100% - 199px);
+    overflow-y: auto;
+}
+
+#contacts .user_info.flex_it {
+    justify-content: flex-start;
+    cursor: pointer;
+    position: relative;
+}
+
+.user_info.visible {
+    background-color: #E9EBEB;
+}
+
+.user_info:hover {
+    background-color: #E9EBEB;
+}
+
+.contact_info {
+    max-width: 120px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.last_message, .time {
+    font-size: .8rem;
+    color: #BFC1C3;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.time {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+/* MAIN RULES -------------------- */
+main {
+    min-width: 400px;
+    width: 65%;
+    height: 100%;
+    background-image: url('../img/whatsapp_background.jpg');
+    position: relative;
+}
+
+#chat_window {
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+    /* chat profile section */
+#chat_profile {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.profile_text .time {
+    position: static;
+}
+
+    /* messages */
+#messages {
+    padding: 90px 50px;
+    max-height: calc(100% - 70px);
+}
+
+.msg {
+    margin-top: 5px;
+    min-width: 250px;
+    padding: 25px 10px 25px 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    display: flex;
+    flex-flow: column wrap;
+    position: relative;
+}
+
+.msg.selected {
+    content: '';
+    background-color: rgba(26, 133, 221, 0.6);
+}
+
+.contact_message:hover .fa-angle-down,
+.personal_message:hover .fa-angle-down {
+    display: block;
+}
+
+.msg .fa-angle-down {
+    padding: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    display: none;
+}
+
+.dropdown {
+    display: none;
+    list-style: none;
+    height: 0;
+    transition: linear .5s;
+    box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, .5);
+}
+
+.dropdown li {
+    padding: 7px 10px;
+}
+
+.dropdown li:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+}
+
+
+.dropdown.active {
+    display: block;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    z-index: 1;
+    min-height: 60px;
+    transition: linear .5s;
+}
+
+.msg .time {
+    bottom: 5px;
+    top: initial;
+}
+
+.contact_message {
+    align-self: flex-start;
+    max-width: 80%;
+}
+
+.personal_message {
+    align-self: flex-end;
+    background-color: #DDF8C0;
+    max-width: 80%;
+}
+
+    /* type new message */
+#type_message {
+    background-color: #F3EEEA;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+#type_in {
+    width: 100%;
+    border: 0;
+    border-radius: 3px;
+    padding: 10px 5px;
+    font-size: 1rem;
+}
+
+#type_message i {
+    text-align: center;
+    margin: 0 20px;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    min-width: 30px;
+}
