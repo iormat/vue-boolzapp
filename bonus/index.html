@@ -103,7 +103,7 @@
 
                                     <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
                                         <li @click="selectMessage(message), openDropdownMenu(message)"> Seleziona messaggio </li>
-                                        <li @click="deleteMsg(message, j)"> Elimina messaggio </li>
+                                        <li @click="deleteMsg(j)"> Elimina messaggio </li>
                                     </ul>
                                 </div>
                                 <!-- sent messages -->
@@ -116,7 +116,7 @@
 
                                     <ul class="dropdown" :class="message.openDropMenu ? 'active' : '' ">
                                         <li @click="selectMessage(message), openDropdownMenu(message)"> Seleziona messaggio </li>
-                                        <li @click="deleteMsg(message, j)"> Elimina messaggio </li>
+                                        <li @click="deleteMsg(j)"> Elimina messaggio </li>
                                     </ul>
                                 </div>
                             </div>
